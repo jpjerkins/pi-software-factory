@@ -1,5 +1,7 @@
 # Running `claude -p` unattended on pi5 safely
 
+> **Decision (2026-10-04, chart #1): the factory will NOT use headless workers (`claude -p`).** Workers are real, interactive Claude Code CLI sessions hosted in a HERDR server; Phil can open a fixed number of them manually if needed. Findings below that depend on headless mode (exit contract, `--resume`, `dontAsk`, stream-json events) do not apply. Driving interactive sessions is researched in a follow-up ticket.
+
 Research for issue #4 (chart #1). Checked against Claude Code **2.1.289** on pi5, 2026-10-04.
 Sources are the official docs at code.claude.com (linked inline), `claude --help`, and one small test run.
 
