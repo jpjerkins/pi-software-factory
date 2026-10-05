@@ -1,0 +1,315 @@
+{
+  "capturedOn": "2026-10-04",
+  "repository": "jpjerkins/task-guide",
+  "issues": [
+    {
+      "number": 49,
+      "title": "Restore drill — verify the Backup by actually restoring one",
+      "createdAt": "2026-08-26T16:31:31Z",
+      "labels": [
+        "wayfinder:task",
+        "build",
+        "lane:validation",
+        "agent:claude"
+      ],
+      "assignees": [],
+      "blockedBy": [
+        {
+          "number": 109,
+          "state": "OPEN"
+        }
+      ],
+      "blocking": [
+        {
+          "number": 110,
+          "state": "OPEN"
+        }
+      ]
+    },
+    {
+      "number": 50,
+      "title": "Glance field mapping — which Modular slot renders which field",
+      "createdAt": "2026-08-26T16:31:33Z",
+      "labels": [
+        "wayfinder:task",
+        "agent:claude"
+      ],
+      "assignees": [],
+      "blockedBy": [
+        {
+          "number": 88,
+          "state": "OPEN"
+        }
+      ],
+      "blocking": []
+    },
+    {
+      "number": 65,
+      "title": "Storage test fidelity and coverage debt",
+      "createdAt": "2026-08-29T15:51:50Z",
+      "labels": [
+        "agent:claude"
+      ],
+      "assignees": [],
+      "blockedBy": [],
+      "blocking": []
+    },
+    {
+      "number": 88,
+      "title": "A4 · The Glance renderer — GlanceState to a watch face",
+      "createdAt": "2026-09-03T12:54:47Z",
+      "labels": [
+        "build",
+        "lane:adapters",
+        "agent:claude"
+      ],
+      "assignees": [
+        "jpjerkins"
+      ],
+      "blockedBy": [
+        {
+          "number": 85,
+          "state": "CLOSED"
+        },
+        {
+          "number": 79,
+          "state": "CLOSED"
+        },
+        {
+          "number": 76,
+          "state": "CLOSED"
+        }
+      ],
+      "blocking": [
+        {
+          "number": 50,
+          "state": "OPEN"
+        }
+      ]
+    },
+    {
+      "number": 103,
+      "title": "WN3 · Quick capture, Right now, and the day view",
+      "createdAt": "2026-09-03T12:55:06Z",
+      "labels": [
+        "build",
+        "lane:web-now",
+        "agent:claude"
+      ],
+      "assignees": [],
+      "blockedBy": [
+        {
+          "number": 134,
+          "state": "CLOSED"
+        },
+        {
+          "number": 100,
+          "state": "CLOSED"
+        }
+      ],
+      "blocking": [
+        {
+          "number": 109,
+          "state": "OPEN"
+        }
+      ]
+    },
+    {
+      "number": 105,
+      "title": "WA1 · Window editor, day-template editor and usage list",
+      "createdAt": "2026-09-03T12:55:09Z",
+      "labels": [
+        "build",
+        "lane:web-authoring",
+        "agent:claude"
+      ],
+      "assignees": [],
+      "blockedBy": [
+        {
+          "number": 123,
+          "state": "CLOSED"
+        },
+        {
+          "number": 104,
+          "state": "CLOSED"
+        }
+      ],
+      "blocking": []
+    },
+    {
+      "number": 106,
+      "title": "WA2 · Pattern editor and switcher",
+      "createdAt": "2026-09-03T12:55:10Z",
+      "labels": [
+        "build",
+        "lane:web-authoring",
+        "agent:claude"
+      ],
+      "assignees": [],
+      "blockedBy": [
+        {
+          "number": 123,
+          "state": "CLOSED"
+        },
+        {
+          "number": 104,
+          "state": "CLOSED"
+        }
+      ],
+      "blocking": [
+        {
+          "number": 109,
+          "state": "OPEN"
+        }
+      ]
+    },
+    {
+      "number": 109,
+      "title": "V1 · The E2E suite",
+      "createdAt": "2026-09-03T12:55:14Z",
+      "labels": [
+        "build",
+        "lane:validation",
+        "agent:claude"
+      ],
+      "assignees": [],
+      "blockedBy": [
+        {
+          "number": 140,
+          "state": "CLOSED"
+        },
+        {
+          "number": 112,
+          "state": "CLOSED"
+        },
+        {
+          "number": 107,
+          "state": "CLOSED"
+        },
+        {
+          "number": 106,
+          "state": "OPEN"
+        },
+        {
+          "number": 102,
+          "state": "CLOSED"
+        },
+        {
+          "number": 101,
+          "state": "CLOSED"
+        },
+        {
+          "number": 84,
+          "state": "CLOSED"
+        },
+        {
+          "number": 108,
+          "state": "CLOSED"
+        },
+        {
+          "number": 103,
+          "state": "OPEN"
+        },
+        {
+          "number": 74,
+          "state": "CLOSED"
+        }
+      ],
+      "blocking": [
+        {
+          "number": 110,
+          "state": "OPEN"
+        },
+        {
+          "number": 49,
+          "state": "OPEN"
+        }
+      ]
+    },
+    {
+      "number": 110,
+      "title": "V3 · The guided walkthrough, and the tutorial it produces",
+      "createdAt": "2026-09-03T12:55:15Z",
+      "labels": [
+        "build",
+        "lane:validation",
+        "agent:claude"
+      ],
+      "assignees": [],
+      "blockedBy": [
+        {
+          "number": 49,
+          "state": "OPEN"
+        },
+        {
+          "number": 109,
+          "state": "OPEN"
+        }
+      ],
+      "blocking": []
+    },
+    {
+      "number": 146,
+      "title": "Re-port RecurrenceEditor to the prototype's timingFields() shape",
+      "createdAt": "2026-09-19T22:19:39Z",
+      "labels": [
+        "build",
+        "lane:web-authoring",
+        "agent:claude"
+      ],
+      "assignees": [
+        "jpjerkins"
+      ],
+      "blockedBy": [],
+      "blocking": []
+    },
+    {
+      "number": 181,
+      "title": "Recurrence.FirstInstance must ignore FirstDue for calendar-anchored rules",
+      "createdAt": "2026-09-22T01:25:51Z",
+      "labels": [
+        "build",
+        "lane:capture-tasks",
+        "agent:codex"
+      ],
+      "assignees": [],
+      "blockedBy": [],
+      "blocking": []
+    },
+    {
+      "number": 182,
+      "title": "OrdinalSlider: a right-click wedges pointerStartedOnSlider, so a foreign pointer release commits",
+      "createdAt": "2026-09-22T03:15:46Z",
+      "labels": [
+        "build",
+        "lane:web-authoring",
+        "agent:claude"
+      ],
+      "assignees": [],
+      "blockedBy": [],
+      "blocking": []
+    },
+    {
+      "number": 184,
+      "title": "Api tests read the host's root-only secrets env file, so 139 fail on pi5",
+      "createdAt": "2026-10-05T00:26:30Z",
+      "labels": [],
+      "assignees": [],
+      "blockedBy": [],
+      "blocking": []
+    },
+    {
+      "number": 185,
+      "title": "check-schema-drift.sh fails on main on pi5: live OpenAPI doc drops response types",
+      "createdAt": "2026-10-05T00:40:54Z",
+      "labels": [
+        "build",
+        "lane:integration",
+        "agent:claude"
+      ],
+      "assignees": [],
+      "blockedBy": [],
+      "blocking": []
+    }
+  ]
+}
