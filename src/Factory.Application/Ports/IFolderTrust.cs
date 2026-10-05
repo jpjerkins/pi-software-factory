@@ -2,5 +2,5 @@ namespace Factory.Application.Ports;
 
 public interface IFolderTrust
 {
-    Task EnsureTrustedAsync(string cloneRoot, CancellationToken ct);
+    Task EnsureTrustedAsync(string repoRoot, CancellationToken ct);
 }

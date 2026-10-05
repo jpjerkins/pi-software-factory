@@ -6,10 +6,10 @@ internal sealed class FakeFolderTrust(CallLog log) : IFolderTrust
 {
     public List<string> Trusted { get; } = [];
 
-    public Task EnsureTrustedAsync(string cloneRoot, CancellationToken ct)
+    public Task EnsureTrustedAsync(string repoRoot, CancellationToken ct)
     {
         log.Add("trust");
-        Trusted.Add(cloneRoot);
+        Trusted.Add(repoRoot);
         return Task.CompletedTask;
     }
 }

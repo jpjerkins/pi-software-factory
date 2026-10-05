@@ -18,9 +18,9 @@ public sealed class ClaudeTrust(string configPath) : IFolderTrust
     private const int Attempts = 2;
     private const string TrustFlag = "hasTrustDialogAccepted";
 
-    public async Task EnsureTrustedAsync(string cloneRoot, CancellationToken ct)
+    public async Task EnsureTrustedAsync(string repoRoot, CancellationToken ct)
     {
-        var key = Normalise(cloneRoot);
+        var key = Normalise(repoRoot);
 
         for (var attempt = 1; attempt <= Attempts; attempt++)
         {
@@ -42,9 +42,9 @@ public sealed class ClaudeTrust(string configPath) : IFolderTrust
         throw new IOException($"{configPath} kept changing while trusting {key}; gave up after {Attempts} attempts.");
     }
 
-    private static string Normalise(string cloneRoot)
+    private static string Normalise(string repoRoot)
     {
-        var trimmed = cloneRoot.TrimEnd('/');
+        var trimmed = repoRoot.TrimEnd('/');
         return trimmed.Length == 0 ? "/" : trimmed;
     }
 
