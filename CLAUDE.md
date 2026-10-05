@@ -63,3 +63,7 @@ The personal SDLC and all durable factory state belong to the factory. OpenRig o
 ## Hermes Agent hypothesis
 
 Hermes Agent is a candidate to prototype and test only as a possible deterministic management-plane implementation. Its AI management features must be controllable or disableable so routine management uses no scarce LLM budget. If Hermes cannot operate suitably in that deterministic mode, use it as design inspiration for a custom deterministic management plane—not as the chosen architecture.
+
+## Coding standards
+
+See [docs/coding-standards.md](docs/coding-standards.md). Issue tracking: [docs/agents/issue-tracker.md](docs/agents/issue-tracker.md).
