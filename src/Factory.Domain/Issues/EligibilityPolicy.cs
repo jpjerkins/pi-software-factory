@@ -11,6 +11,7 @@ public sealed class EligibilityPolicy
         issue.IsOpen
         && issue.HasLabel(BuildLabel)
         && issue.HasLabel(ClaudeAgentLabel)
+        && issue.Lane is not null
         && !issue.HasLabel(RunningLabel)
         && !issue.IsAssigned
         && !issue.IsBlocked;

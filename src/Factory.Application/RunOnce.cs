@@ -33,8 +33,8 @@ public sealed class RunOnce(
         await runs.CreateAsync(runId, ct);
 
         await issues.ClaimAsync(issue.Number, runId, ct);
-        var worktree = await worktrees.PrepareAsync(issue.Number, ct);
-        await folderTrust.EnsureTrustedAsync(options.CloneRoot, ct);
+        var worktree = await worktrees.PrepareAsync(issue, ct);
+        await folderTrust.EnsureTrustedAsync(options.RepoRoot, ct);
         var session = await slots.StartAsync(new WorkerLaunch(runId, issue.Number, worktree), ct);
 
         var outcome = await WaitForOutcomeAsync(runId, session, ct);

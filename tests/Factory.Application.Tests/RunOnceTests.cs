@@ -8,7 +8,7 @@ public class RunOnceTests
 {
     private static readonly DateTimeOffset Start = new(2026, 10, 4, 15, 30, 0, TimeSpan.Zero);
     private static readonly RunOnceOptions Options =
-        new("/clone", TimeSpan.FromMinutes(1), TimeSpan.FromMinutes(20));
+        new("/repo", TimeSpan.FromMinutes(1), TimeSpan.FromMinutes(20));
 
     private sealed class Harness
     {
@@ -37,8 +37,8 @@ public class RunOnceTests
     }
 
     private static Issue Eligible(int number, int createdDay = 1) => new(
-        new IssueNumber(number), true, new DateTimeOffset(2026, 9, createdDay, 0, 0, 0, TimeSpan.Zero),
-        ["build", "agent:claude"], [], [], []);
+        new IssueNumber(number), $"Issue {number}", true, new DateTimeOffset(2026, 9, createdDay, 0, 0, 0, TimeSpan.Zero),
+        ["build", "agent:claude", "lane:adapters"], [], [], []);
 
     private static WorkerResult Result(ReportedStatus status) => new(status, "s", [], [], [], []);
 
@@ -122,7 +122,7 @@ public class RunOnceTests
     }
 
     [Fact]
-    public async Task Launches_the_worker_in_the_prepared_worktree_and_trusts_the_clone_root()
+    public async Task Launches_the_worker_in_the_prepared_worktree_and_trusts_the_repo_root()
     {
         var h = new Harness(Eligible(103));
         h.Store.Result = Result(ReportedStatus.Done);
@@ -131,9 +131,10 @@ public class RunOnceTests
 
         var launch = Assert.Single(h.Slots.Launches);
         Assert.Equal(new IssueNumber(103), launch.Issue);
-        Assert.Equal(new Worktree("/clone/wt-103", "lane/103"), launch.Worktree);
+        Assert.Equal(new Worktree("/repo/wt-103", "adapters/103-issue-103"), launch.Worktree);
         Assert.Equal("20261004-1530-i103", launch.Run.Value);
-        Assert.Equal(["/clone"], h.Trust.Trusted);
+        Assert.Equal(["/repo"], h.Trust.Trusted);
+        Assert.Equal(new IssueNumber(103), Assert.Single(h.Worktrees.Prepared).Number);
         Assert.Equal(launch.Run, Assert.Single(h.Issues.Claims).Run);
         Assert.Equal(launch.Run, Assert.Single(h.Store.Created));
     }
@@ -149,7 +150,7 @@ public class RunOnceTests
         var saved = Assert.Single(h.Store.Saved);
         Assert.Same(saved, result.Run);
         Assert.Equal(new IssueNumber(103), saved.Issue);
-        Assert.Equal(new Worktree("/clone/wt-103", "lane/103"), saved.Worktree);
+        Assert.Equal(new Worktree("/repo/wt-103", "adapters/103-issue-103"), saved.Worktree);
         Assert.Equal(WorkerOutcome.NeedsInput, saved.Outcome);
         Assert.Equal(Start, saved.StartedAt);
         Assert.Equal(Start + TimeSpan.FromMinutes(2), saved.EndedAt);

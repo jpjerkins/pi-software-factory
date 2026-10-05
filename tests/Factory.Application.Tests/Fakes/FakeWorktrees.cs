@@ -6,14 +6,14 @@ namespace Factory.Application.Tests.Fakes;
 
 internal sealed class FakeWorktrees(CallLog log) : IWorktrees
 {
-    public List<IssueNumber> Prepared { get; } = [];
+    public List<Issue> Prepared { get; } = [];
     public List<Worktree> Removed { get; } = [];
 
-    public Task<Worktree> PrepareAsync(IssueNumber issue, CancellationToken ct)
+    public Task<Worktree> PrepareAsync(Issue issue, CancellationToken ct)
     {
         log.Add("worktree");
         Prepared.Add(issue);
-        return Task.FromResult(new Worktree($"/clone/wt-{issue.Value}", $"lane/{issue.Value}"));
+        return Task.FromResult(new Worktree($"/repo/wt-{issue.Number.Value}", WorkBranch.For(issue).BranchName));
     }
 
     public Task RemoveAsync(Worktree worktree, CancellationToken ct)

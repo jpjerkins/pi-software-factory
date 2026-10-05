@@ -40,5 +40,13 @@ public class EligibilityPolicyTests
 
     [Fact]
     public void Extra_unrelated_labels_do_not_matter() =>
-        Assert.True(IsEligible(AnIssue.Eligible().WithLabel("lane:web-now").Build()));
+        Assert.True(IsEligible(AnIssue.Eligible().WithLabel("wayfinder:task").Build()));
+
+    [Fact]
+    public void Issue_without_a_lane_label_is_not_eligible() =>
+        Assert.False(IsEligible(AnIssue.Eligible().WithoutLabel("lane:adapters").Build()));
+
+    [Fact]
+    public void Issue_with_two_lane_labels_is_not_eligible() =>
+        Assert.False(IsEligible(AnIssue.Eligible().WithLabel("lane:web-now").Build()));
 }

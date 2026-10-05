@@ -21,6 +21,7 @@ internal static class TaskGuideIssueFixture
 
     private static Issue ToIssue(IssueDto dto) => new(
         new IssueNumber(dto.Number),
+        dto.Title,
         IsOpen: true,
         dto.CreatedAt,
         dto.Labels,
