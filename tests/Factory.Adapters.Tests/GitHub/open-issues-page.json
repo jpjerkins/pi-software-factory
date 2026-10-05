@@ -1,0 +1,132 @@
+{
+  "data": {
+    "repository": {
+      "issues": {
+        "pageInfo": {
+          "hasNextPage": false,
+          "endCursor": null
+        },
+        "nodes": [
+          {
+            "number": 49,
+            "title": "Restore drill \u2014 verify the Backup by act",
+            "createdAt": "2026-08-26T16:31:31Z",
+            "labels": {
+              "nodes": [
+                {
+                  "name": "wayfinder:task"
+                },
+                {
+                  "name": "build"
+                },
+                {
+                  "name": "lane:validation"
+                },
+                {
+                  "name": "agent:claude"
+                }
+              ]
+            },
+            "assignees": {
+              "nodes": []
+            },
+            "blockedBy": {
+              "nodes": [
+                {
+                  "number": 109,
+                  "state": "OPEN"
+                }
+              ]
+            },
+            "blocking": {
+              "nodes": [
+                {
+                  "number": 110,
+                  "state": "OPEN"
+                }
+              ]
+            }
+          },
+          {
+            "number": 50,
+            "title": "Glance field mapping \u2014 which Modular slo",
+            "createdAt": "2026-08-26T16:31:33Z",
+            "labels": {
+              "nodes": [
+                {
+                  "name": "wayfinder:task"
+                },
+                {
+                  "name": "agent:claude"
+                }
+              ]
+            },
+            "assignees": {
+              "nodes": []
+            },
+            "blockedBy": {
+              "nodes": [
+                {
+                  "number": 88,
+                  "state": "OPEN"
+                }
+              ]
+            },
+            "blocking": {
+              "nodes": []
+            }
+          },
+          {
+            "number": 88,
+            "title": "A4 \u00b7 The Glance renderer \u2014 GlanceState t",
+            "createdAt": "2026-09-03T12:54:47Z",
+            "labels": {
+              "nodes": [
+                {
+                  "name": "build"
+                },
+                {
+                  "name": "lane:adapters"
+                },
+                {
+                  "name": "agent:claude"
+                }
+              ]
+            },
+            "assignees": {
+              "nodes": [
+                {
+                  "login": "jpjerkins"
+                }
+              ]
+            },
+            "blockedBy": {
+              "nodes": [
+                {
+                  "number": 85,
+                  "state": "CLOSED"
+                },
+                {
+                  "number": 79,
+                  "state": "CLOSED"
+                },
+                {
+                  "number": 76,
+                  "state": "CLOSED"
+                }
+              ]
+            },
+            "blocking": {
+              "nodes": [
+                {
+                  "number": 50,
+                  "state": "OPEN"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}

@@ -3,7 +3,7 @@ using System.Diagnostics;
 namespace Factory.Adapters.Shell;
 
 /// <summary>Runs a command with an argument list (never a shell string) and captures its output.</summary>
-public sealed class ProcessRunner
+public sealed class ProcessRunner : ICommandRunner
 {
     public async Task<ProcessResult> RunAsync(
         string command, IReadOnlyList<string> args, string? workingDirectory, CancellationToken ct)

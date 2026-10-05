@@ -12,6 +12,7 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="GitHub\*.json" CopyToOutputDirectory="PreserveNewest" />
     <ProjectReference Include="..\..\src\Factory.Adapters\Factory.Adapters.csproj" />
   </ItemGroup>
 </Project>
