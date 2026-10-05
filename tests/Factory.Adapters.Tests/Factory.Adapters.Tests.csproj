@@ -13,6 +13,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="GitHub\*.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="Claude\*.txt" CopyToOutputDirectory="PreserveNewest" />
     <ProjectReference Include="..\..\src\Factory.Adapters\Factory.Adapters.csproj" />
   </ItemGroup>
 </Project>
