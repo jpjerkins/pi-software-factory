@@ -1,0 +1,5 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\Factory.Application\Factory.Application.csproj" />
+  </ItemGroup>
+</Project>

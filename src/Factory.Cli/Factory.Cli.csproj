@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>factory</AssemblyName>
+    <RootNamespace>Factory.Cli</RootNamespace>
+    <PublishReadyToRun>true</PublishReadyToRun>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Factory.Adapters\Factory.Adapters.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\..\assets\worker\**" Link="assets\worker\%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>
