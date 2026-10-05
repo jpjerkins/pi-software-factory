@@ -7,7 +7,7 @@ public class OutcomeDetectionTests
     private static readonly DateTimeOffset Now = new(2026, 10, 4, 12, 0, 0, TimeSpan.Zero);
     private static readonly TimeSpan Timeout = TimeSpan.FromMinutes(20);
 
-    private static WorkerResult Result(WorkerOutcome status) => new(status, "s", [], [], [], []);
+    private static WorkerResult Result(ReportedStatus status) => new(status, "s", [], [], [], []);
 
     private static WorkerSignals Signals(TimeSpan idle, bool ended = false) => new(Now - idle, ended);
 
@@ -15,17 +15,17 @@ public class OutcomeDetectionTests
         OutcomeDetection.Detect(result, signals, isRunning, Now, Timeout);
 
     [Theory]
-    [InlineData(WorkerOutcome.PlanReady)]
-    [InlineData(WorkerOutcome.Done)]
-    [InlineData(WorkerOutcome.NeedsInput)]
-    [InlineData(WorkerOutcome.Blocked)]
-    public void Result_present_gives_its_status(WorkerOutcome status) =>
-        Assert.Equal(status, Detect(Result(status), Signals(TimeSpan.Zero)));
+    [InlineData(ReportedStatus.PlanReady, WorkerOutcome.PlanReady)]
+    [InlineData(ReportedStatus.Done, WorkerOutcome.Done)]
+    [InlineData(ReportedStatus.NeedsInput, WorkerOutcome.NeedsInput)]
+    [InlineData(ReportedStatus.Blocked, WorkerOutcome.Blocked)]
+    public void Result_present_gives_its_status(ReportedStatus status, WorkerOutcome expected) =>
+        Assert.Equal(expected, Detect(Result(status), Signals(TimeSpan.Zero)));
 
     [Fact]
     public void Result_wins_even_if_session_ended_and_idle() =>
         Assert.Equal(WorkerOutcome.Done,
-            Detect(Result(WorkerOutcome.Done), Signals(TimeSpan.FromHours(5), ended: true), isRunning: false));
+            Detect(Result(ReportedStatus.Done), Signals(TimeSpan.FromHours(5), ended: true), isRunning: false));
 
     [Fact]
     public void Session_ended_signal_without_result_is_crashed() =>

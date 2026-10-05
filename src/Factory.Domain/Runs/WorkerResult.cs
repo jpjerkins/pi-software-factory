@@ -2,7 +2,7 @@ namespace Factory.Domain.Runs;
 
 /// <summary>What the worker reported in result.json.</summary>
 public sealed record WorkerResult(
-    WorkerOutcome Status,
+    ReportedStatus Status,
     string Summary,
     IReadOnlyList<string> TestsRun,
     IReadOnlyList<string> FilesTouched,

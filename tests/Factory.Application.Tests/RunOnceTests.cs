@@ -40,7 +40,7 @@ public class RunOnceTests
         new IssueNumber(number), true, new DateTimeOffset(2026, 9, createdDay, 0, 0, 0, TimeSpan.Zero),
         ["build", "agent:claude"], [], [], []);
 
-    private static WorkerResult Result(WorkerOutcome status) => new(status, "s", [], [], [], []);
+    private static WorkerResult Result(ReportedStatus status) => new(status, "s", [], [], [], []);
 
     [Fact]
     public async Task Nothing_eligible_means_nothing_to_do_and_no_side_effects()
@@ -61,7 +61,7 @@ public class RunOnceTests
     public async Task Picks_the_first_issue_in_pickup_order()
     {
         var h = new Harness(Eligible(5, createdDay: 3), Eligible(7, createdDay: 1));
-        h.Store.Result = Result(WorkerOutcome.Done);
+        h.Store.Result = Result(ReportedStatus.Done);
 
         await h.RunAsync();
 
@@ -69,11 +69,11 @@ public class RunOnceTests
     }
 
     [Theory]
-    [InlineData(WorkerOutcome.PlanReady)]
-    [InlineData(WorkerOutcome.Done)]
-    [InlineData(WorkerOutcome.NeedsInput)]
-    [InlineData(WorkerOutcome.Blocked)]
-    public async Task Reports_the_outcome_the_worker_wrote(WorkerOutcome status)
+    [InlineData(ReportedStatus.PlanReady, WorkerOutcome.PlanReady)]
+    [InlineData(ReportedStatus.Done, WorkerOutcome.Done)]
+    [InlineData(ReportedStatus.NeedsInput, WorkerOutcome.NeedsInput)]
+    [InlineData(ReportedStatus.Blocked, WorkerOutcome.Blocked)]
+    public async Task Reports_the_outcome_the_worker_wrote(ReportedStatus status, WorkerOutcome expected)
     {
         var h = new Harness(Eligible(103));
         h.Store.OnRead = n => { if (n == 3) h.Store.Result = Result(status); };
@@ -81,7 +81,7 @@ public class RunOnceTests
         var result = await h.RunAsync();
 
         Assert.False(result.NothingToDo);
-        Assert.Equal(status, result.Run!.Outcome);
+        Assert.Equal(expected, result.Run!.Outcome);
         Assert.Equal(3, h.Clock.Waits);
     }
 
@@ -112,7 +112,7 @@ public class RunOnceTests
     public async Task Claims_before_preparing_the_worktree_and_starting_the_worker()
     {
         var h = new Harness(Eligible(103));
-        h.Store.Result = Result(WorkerOutcome.Done);
+        h.Store.Result = Result(ReportedStatus.Done);
 
         await h.RunAsync();
 
@@ -125,7 +125,7 @@ public class RunOnceTests
     public async Task Launches_the_worker_in_the_prepared_worktree_and_trusts_the_clone_root()
     {
         var h = new Harness(Eligible(103));
-        h.Store.Result = Result(WorkerOutcome.Done);
+        h.Store.Result = Result(ReportedStatus.Done);
 
         await h.RunAsync();
 
@@ -142,7 +142,7 @@ public class RunOnceTests
     public async Task Saves_run_with_usage_before_and_after_and_the_outcome()
     {
         var h = new Harness(Eligible(103));
-        h.Store.OnRead = n => { if (n == 2) h.Store.Result = Result(WorkerOutcome.NeedsInput); };
+        h.Store.OnRead = n => { if (n == 2) h.Store.Result = Result(ReportedStatus.NeedsInput); };
 
         var result = await h.RunAsync();
 
@@ -162,7 +162,7 @@ public class RunOnceTests
     public async Task Leaves_worktree_and_claim_in_place()
     {
         var h = new Harness(Eligible(103));
-        h.Store.Result = Result(WorkerOutcome.Done);
+        h.Store.Result = Result(ReportedStatus.Done);
 
         await h.RunAsync();
 

@@ -13,7 +13,7 @@ public static class OutcomeDetection
     {
         if (result is not null)
         {
-            return result.Status;
+            return result.Status.ToOutcome();
         }
 
         if (signals.SessionEnded || !isRunning)
