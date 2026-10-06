@@ -51,6 +51,7 @@ public sealed class HerdrSlotsStartTests : IDisposable
         [
             "--env", $"FACTORY_RUN_DIR={RunDir}",
             "--env", "FACTORY_RUN_ID=20261004-1530-i103",
+            "--env", "FACTORY_WORKTREE=/wt/i103",
             "--env", $"GH_CONFIG_DIR={RunDir}/gh-config",
             "--env", "GIT_CONFIG_GLOBAL=/opt/factory/assets/worker/gitconfig",
             "--env", "Secrets__EnvFile=/nonexistent/envfile",

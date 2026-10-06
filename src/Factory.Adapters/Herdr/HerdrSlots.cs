@@ -99,6 +99,7 @@ public sealed class HerdrSlots(ICommandRunner runner, HerdrOptions options) : IW
     [
         ("FACTORY_RUN_DIR", runDir),
         ("FACTORY_RUN_ID", launch.Run.Value),
+        ("FACTORY_WORKTREE", launch.Worktree.Path),
         ("GH_CONFIG_DIR", GhConfigDir(runDir)),
         ("GIT_CONFIG_GLOBAL", options.GitConfigPath),
         ("Secrets__EnvFile", "/nonexistent/envfile"),
