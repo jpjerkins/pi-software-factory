@@ -30,6 +30,8 @@ Spec: `gh issue view 5`. Decisions: chart #1 (its "no shim" line supersedes the 
    - First live run (2026-10-06, run 20261006-1128-i103) failed: the worker stalled at Claude's folder-trust dialog. A trust entry on the repo root does not cover worktrees beneath it. Fix: trust each worktree path. Phil reset #103 and the worktree was removed; chart #1's 'one entry covers all worktrees' line needs correcting (GitHub write, Phil).
    - Second live run (2026-10-06, run 20261006-1213-i103) reached `plan_ready` in 53 s and the dispatcher exited 0. `run.json` was written with usage before and after. A worker `gh` call was blocked and logged in `denials.log`. `git push` and `herdr` blocks weren't exercised live.
    - Fixed: the factory writes the issue title and body into `prompt.md`.
+   - Third live run (2026-10-06, run 20261006-1226-i103): `plan_ready` in 43 s, exit 0, no denials. `prompt.md` carried the full issue, and the plan matched the ticket (lane files, out-of-lane report, test-first, stops before §8). The plan was one dense paragraph rather than "fits a phone screen". The worker is parked in HERDR tab `w2:t5`, waiting for confirmation (resuming it is #7).
+   - Remaining #5 acceptance gap: the `git push` and `herdr` blocks haven't been exercised live (unit tests only).
    - Minor: Claude added an untrusted `projects` entry for `<repo>/main` in `~/.claude.json` (cause unknown; harmless).
 
 ## Known risks carried forward
