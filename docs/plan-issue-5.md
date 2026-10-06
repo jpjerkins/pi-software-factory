@@ -23,7 +23,7 @@ Spec: `gh issue view 5`. Decisions: chart #1 (its "no shim" line supersedes the 
    - `CommandRouter` with routing tests.
    - No guard against running from `~/dev`. (Phil: no.)
    - Accepted gap: if a step fails partway, the claim and run dir stay, no `run.json` is written, and the error goes to stderr only.
-   - Not yet done: a real `--dry-run` against GitHub. It only reads, but it is a live call, so it needs Phil's OK.
+   - Live `--dry-run` checked 2026-10-06: picked #103 on `web-now/103-wn3-quick-capture-right`, exit 0, no writes.
 3. ⏳ Publish to a live folder outside `~/dev`, with data in `/mnt/data/factory`. **Open question for Phil:** where the live copy goes. It's a host process rather than a DCM container because it drives HERDR and `claude` on the host (chart #1). Neither `/mnt/data/factory` nor `~/dev/factory` exists yet.
 4. ⏳ A manual end-to-end run on a real issue, watched in HERDR. This is the #5 acceptance.
 
