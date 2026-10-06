@@ -24,7 +24,8 @@ Spec: `gh issue view 5`. Decisions: chart #1 (its "no shim" line supersedes the 
    - No guard against running from `~/dev`. (Phil: no.)
    - Accepted gap: if a step fails partway, the claim and run dir stay, no `run.json` is written, and the error goes to stderr only.
    - Live `--dry-run` checked 2026-10-06: picked #103 on `web-now/103-wn3-quick-capture-right`, exit 0, no writes.
-3. ⏳ Publish to a live folder outside `~/dev`, with data in `/mnt/data/factory`. **Open question for Phil:** where the live copy goes. It's a host process rather than a DCM container because it drives HERDR and `claude` on the host (chart #1). Neither `/mnt/data/factory` nor `~/dev/factory` exists yet.
+3. ✅ Publish: `scripts/publish.sh` puts a framework-dependent `linux-arm64` build in `~/apps/factory` (Phil chose this over `/opt` and `/mnt/data`). It finds the runtime via `DOTNET_ROOT` from Phil's profile, and `HerdrSlots` passes `DOTNET_ROOT` into the worker env so hooks find it too. It's a host process rather than a DCM container because it drives HERDR and `claude` on the host (chart #1). Smoke-checked 2026-10-06: usage exits 2; `--dry-run` picks #103.
+   - ⏳ Phil to run once: `sudo mkdir -p /mnt/data/factory/runs && sudo chown -R philj:philj /mnt/data/factory` (`/mnt/data` belongs to root).
 4. ⏳ A manual end-to-end run on a real issue, watched in HERDR. This is the #5 acceptance.
 
 ## Known risks carried forward
