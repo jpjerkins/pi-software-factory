@@ -1,6 +1,13 @@
+using Factory.Cli;
 using Factory.Cli.Hooks;
+using Factory.Cli.RunOnce;
 
-if (args is ["hook", ..])
+var router = new CommandRouter(RunHook, RunOnceAsync, UserHome(), Console.Error);
+return await router.RunAsync(args);
+
+static string UserHome() => Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+
+int RunHook(string[] hookArgs)
 {
     var io = new HookIo(
         Console.In,
@@ -8,8 +15,19 @@ if (args is ["hook", ..])
         Console.Error,
         Environment.GetEnvironmentVariable,
         () => DateTimeOffset.UtcNow);
-    return HookDispatcher.Run(args, io);
+    return HookDispatcher.Run(hookArgs, io);
 }
 
-Console.Error.WriteLine("Usage: factory <command>");
-return 1;
+static async Task<int> RunOnceAsync(RunOnceSettings settings)
+{
+    using var cancel = new CancellationTokenSource();
+    Console.CancelKeyPress += (_, e) =>
+    {
+        e.Cancel = true;
+        cancel.Cancel();
+    };
+
+    var wiring = new RunOnceWiring(settings, Environment.ProcessPath!, AppContext.BaseDirectory, UserHome());
+    var command = new RunOnceCommand(settings, wiring.RunOnce, wiring.NextIssue, Console.Out, Console.Error);
+    return await command.RunAsync(cancel.Token);
+}
