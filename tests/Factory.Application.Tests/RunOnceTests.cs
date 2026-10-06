@@ -122,7 +122,7 @@ public class RunOnceTests
     }
 
     [Fact]
-    public async Task Launches_the_worker_in_the_prepared_worktree_and_trusts_the_repo_root()
+    public async Task Launches_the_worker_in_the_prepared_worktree_and_trusts_the_worktree_it_starts_in()
     {
         var h = new Harness(Eligible(103));
         h.Store.Result = Result(ReportedStatus.Done);
@@ -133,7 +133,7 @@ public class RunOnceTests
         Assert.Equal(new IssueNumber(103), launch.Issue);
         Assert.Equal(new Worktree("/repo/wt-103", "adapters/103-issue-103"), launch.Worktree);
         Assert.Equal("20261004-1530-i103", launch.Run.Value);
-        Assert.Equal(["/repo"], h.Trust.Trusted);
+        Assert.Equal(["/repo/wt-103"], h.Trust.Trusted);
         Assert.Equal(new IssueNumber(103), Assert.Single(h.Worktrees.Prepared).Number);
         Assert.Equal(launch.Run, Assert.Single(h.Issues.Claims).Run);
         Assert.Equal(launch.Run, Assert.Single(h.Store.Created));

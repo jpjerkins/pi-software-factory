@@ -27,6 +27,7 @@ Spec: `gh issue view 5`. Decisions: chart #1 (its "no shim" line supersedes the 
 3. ✅ Publish: `scripts/publish.sh` puts a framework-dependent `linux-arm64` build in `~/apps/factory` (Phil chose this over `/opt` and `/mnt/data`). It finds the runtime via `DOTNET_ROOT` from Phil's profile, and `HerdrSlots` passes `DOTNET_ROOT` into the worker env so hooks find it too. It's a host process rather than a DCM container because it drives HERDR and `claude` on the host (chart #1). Smoke-checked 2026-10-06: usage exits 2; `--dry-run` picks #103.
    - ⏳ Phil to run once: `sudo mkdir -p /mnt/data/factory/runs && sudo chown -R philj:philj /mnt/data/factory` (`/mnt/data` belongs to root).
 4. ⏳ A manual end-to-end run on a real issue, watched in HERDR. This is the #5 acceptance.
+   - First live run (2026-10-06, run 20261006-1128-i103) failed: the worker stalled at Claude's folder-trust dialog. A trust entry on the repo root does not cover worktrees beneath it. Fix: trust each worktree path. Phil reset #103 and the worktree was removed; chart #1's 'one entry covers all worktrees' line needs correcting (GitHub write, Phil).
 
 ## Known risks carried forward
 

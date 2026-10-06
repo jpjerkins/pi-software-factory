@@ -5,7 +5,7 @@ using Factory.Application.Ports;
 namespace Factory.Adapters.Claude;
 
 /// <summary>
-/// Marks a folder as trusted in Claude Code's config file (<c>~/.claude.json</c>) so workers skip the trust dialog.
+/// Marks exactly the given folder as trusted (not the folders below it) in Claude Code's config file (<c>~/.claude.json</c>) so workers skip the trust dialog.
 /// Edits via <see cref="JsonNode"/> so every other property survives untouched.
 /// </summary>
 /// <remarks>
@@ -18,9 +18,9 @@ public sealed class ClaudeTrust(string configPath) : IFolderTrust
     private const int Attempts = 2;
     private const string TrustFlag = "hasTrustDialogAccepted";
 
-    public async Task EnsureTrustedAsync(string repoRoot, CancellationToken ct)
+    public async Task EnsureTrustedAsync(string folder, CancellationToken ct)
     {
-        var key = Normalise(repoRoot);
+        var key = Normalise(folder);
 
         for (var attempt = 1; attempt <= Attempts; attempt++)
         {
@@ -42,9 +42,9 @@ public sealed class ClaudeTrust(string configPath) : IFolderTrust
         throw new IOException($"{configPath} kept changing while trusting {key}; gave up after {Attempts} attempts.");
     }
 
-    private static string Normalise(string repoRoot)
+    private static string Normalise(string folder)
     {
-        var trimmed = repoRoot.TrimEnd('/');
+        var trimmed = folder.TrimEnd('/');
         return trimmed.Length == 0 ? "/" : trimmed;
     }
 
