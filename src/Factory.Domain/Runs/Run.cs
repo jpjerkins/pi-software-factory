@@ -7,6 +7,7 @@ public sealed record Run(
     RunId Id,
     IssueNumber Issue,
     Worktree Worktree,
+    WorkerSession Session,
     DateTimeOffset StartedAt,
     DateTimeOffset EndedAt,
     WorkerOutcome Outcome,

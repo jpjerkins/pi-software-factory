@@ -40,7 +40,7 @@ public sealed class RunOnce(
         var outcome = await WaitForOutcomeAsync(runId, session, ct);
 
         var usageAfter = await usage.ReadAsync(ct);
-        var run = new Run(runId, issue.Number, worktree, startedAt, clock.Now, outcome, usageBefore, usageAfter);
+        var run = new Run(runId, issue.Number, worktree, session, startedAt, clock.Now, outcome, usageBefore, usageAfter);
         await runs.SaveAsync(run, ct);
         return new RunOnceResult(run);
     }

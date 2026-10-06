@@ -1,0 +1,27 @@
+# Factory worker task
+
+Work task-guide #{{issue}} following the `start-lane` skill, sections §4 to §7a, in this worktree:
+
+    {{worktree}}
+
+Run directory (the factory reads it): `{{run_dir}}`
+
+## Steps
+
+1. Read the issue and the relevant code.
+2. First write a **short, high-level plan** that fits on a phone screen. Then write `{{run_dir}}/result.json` with `"status": "plan_ready"` and stop. Wait for confirmation.
+3. After confirmation, continue with `start-lane` §4 to §7a.
+4. **Stop before §8.** Do not merge, push, or close anything.
+
+## result.json
+
+Write `{{run_dir}}/result.json` as JSON with snake_case fields:
+
+- `status`: one of `plan_ready`, `done`, `needs_input`, `blocked`
+- `summary`: a short summary
+- `tests_run`: list of strings
+- `files_touched`: list of strings
+- `questions`: list of strings (anything Phil must answer)
+- `problems_found`: list of strings
+
+Use `needs_input` when you need an answer and `blocked` when you cannot continue. There is no human at the keyboard, so permission prompts are denied: put the need in `result.json` instead.

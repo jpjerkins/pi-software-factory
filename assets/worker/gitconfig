@@ -1,0 +1,6 @@
+# Factory worker git config: no credentials, no helper.
+[user]
+	name = pi-software-factory
+	email = pi-software-factory@users.noreply.github.com
+[credential]
+	helper =

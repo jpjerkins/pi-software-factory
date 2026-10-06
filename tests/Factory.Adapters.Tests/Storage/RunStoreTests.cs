@@ -45,6 +45,7 @@ public sealed class RunStoreTests : IDisposable
         Id,
         new IssueNumber(103),
         new Worktree("/home/x/wt", "lane/i103"),
+        new WorkerSession("w2:p3", "issue-103", "5b0f3c2e-8f7a-4c55-9a53-1d2e3f4a5b6c"),
         new DateTimeOffset(2026, 10, 4, 15, 30, 0, TimeSpan.Zero),
         new DateTimeOffset(2026, 10, 4, 16, 0, 0, TimeSpan.Zero),
         WorkerOutcome.NeedsInput,
@@ -64,6 +65,10 @@ public sealed class RunStoreTests : IDisposable
         Assert.Equal(103, root.GetProperty("issue").GetInt32());
         Assert.Equal("lane/i103", root.GetProperty("worktree").GetProperty("branch").GetString());
         Assert.Equal("needs_input", root.GetProperty("outcome").GetString());
+        var session = root.GetProperty("session");
+        Assert.Equal("w2:p3", session.GetProperty("pane_id").GetString());
+        Assert.Equal("issue-103", session.GetProperty("agent_name").GetString());
+        Assert.Equal("5b0f3c2e-8f7a-4c55-9a53-1d2e3f4a5b6c", session.GetProperty("session_id").GetString());
         Assert.Equal("before", root.GetProperty("usage_before").GetProperty("raw_text").GetString());
         Assert.True(root.TryGetProperty("started_at", out _));
         Assert.True(root.TryGetProperty("ended_at", out _));

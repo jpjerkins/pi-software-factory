@@ -14,6 +14,7 @@
   <ItemGroup>
     <None Include="GitHub\*.json" CopyToOutputDirectory="PreserveNewest" />
     <None Include="Claude\*.txt" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\assets\worker\*" Link="assets\worker\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
     <ProjectReference Include="..\..\src\Factory.Adapters\Factory.Adapters.csproj" />
   </ItemGroup>
 </Project>

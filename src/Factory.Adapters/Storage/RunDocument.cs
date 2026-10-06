@@ -7,6 +7,7 @@ internal sealed record RunDocument(
     string RunId,
     int Issue,
     WorktreeDocument Worktree,
+    SessionDocument Session,
     DateTimeOffset StartedAt,
     DateTimeOffset EndedAt,
     WorkerOutcome Outcome,
@@ -17,6 +18,7 @@ internal sealed record RunDocument(
         run.Id.Value,
         run.Issue.Value,
         new WorktreeDocument(run.Worktree.Path, run.Worktree.Branch),
+        new SessionDocument(run.Session.PaneId, run.Session.AgentName, run.Session.SessionId),
         run.StartedAt,
         run.EndedAt,
         run.Outcome,
@@ -25,5 +27,7 @@ internal sealed record RunDocument(
 }
 
 internal sealed record WorktreeDocument(string Path, string Branch);
+
+internal sealed record SessionDocument(string PaneId, string AgentName, string SessionId);
 
 internal sealed record UsageDocument(string RawText, DateTimeOffset ReadAt);
