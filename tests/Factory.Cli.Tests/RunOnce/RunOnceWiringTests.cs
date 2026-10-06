@@ -7,7 +7,7 @@ public class RunOnceWiringTests
     private static readonly RunOnceSettings Settings =
         new("/home/phil/dev/factory/task-guide", "/mnt/data/factory/runs", TimeSpan.FromSeconds(7), TimeSpan.FromMinutes(9), false);
 
-    private static RunOnceWiring Build() => new(Settings, "/opt/factory/factory", "/opt/factory/", "/home/phil");
+    private static RunOnceWiring Build() => new(Settings, "/opt/factory/factory", "/opt/factory/", "/home/phil", "/home/phil/.dotnet");
 
     [Fact]
     public void Fixed_values_are_the_task_guide_repo_and_claude()
@@ -30,6 +30,10 @@ public class RunOnceWiringTests
         Assert.Equal("/opt/factory/assets/worker/gitconfig", o.GitConfigPath);
         Assert.Equal("/opt/factory/assets/worker/prompt.md.template", o.PromptTemplatePath);
     }
+
+    [Fact]
+    public void The_dotnet_root_reaches_the_herdr_options() =>
+        Assert.Equal("/home/phil/.dotnet", Build().HerdrOptions.DotnetRoot);
 
     [Fact]
     public void Run_once_options_come_from_the_settings()

@@ -19,11 +19,12 @@ public sealed class HerdrSlotsStartTests : IDisposable
 
     private string RunDir => _root.RunDir(Run.Value);
 
-    private HerdrSlots Slots() => new(_herdr, new HerdrOptions(
+    private HerdrSlots Slots(string? dotnetRoot = null) => new(_herdr, new HerdrOptions(
         RunsRoot: _root.Path,
         FactoryBinaryPath: "/opt/factory/factory",
         GitConfigPath: "/opt/factory/assets/worker/gitconfig",
-        PromptTemplatePath: Path.Combine(AppContext.BaseDirectory, "assets", "worker", "prompt.md.template")));
+        PromptTemplatePath: Path.Combine(AppContext.BaseDirectory, "assets", "worker", "prompt.md.template"),
+        DotnetRoot: dotnetRoot));
 
     private HerdrSlots HappyPath()
     {
@@ -59,6 +60,28 @@ public sealed class HerdrSlotsStartTests : IDisposable
             "--env", "GH_TOKEN=",
             "--env", "GITHUB_TOKEN=",
         ], args);
+    }
+
+    [Fact]
+    public async Task The_worker_environment_carries_DOTNET_ROOT_when_set()
+    {
+        _herdr.Replies(FakeHerdr.WorkspaceList).Replies(FakeHerdr.TabCreated).Replies(FakeHerdr.AgentStarted);
+
+        await Slots("/home/phil/.dotnet").StartAsync(Launch, Ct);
+
+        Assert.Contains("DOTNET_ROOT=/home/phil/.dotnet", _herdr.Calls[1]);
+    }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    public async Task The_worker_environment_has_no_DOTNET_ROOT_when_null_or_empty(string? dotnetRoot)
+    {
+        _herdr.Replies(FakeHerdr.WorkspaceList).Replies(FakeHerdr.TabCreated).Replies(FakeHerdr.AgentStarted);
+
+        await Slots(dotnetRoot).StartAsync(Launch, Ct);
+
+        Assert.DoesNotContain(_herdr.Calls[1], a => a.StartsWith("DOTNET_ROOT"));
     }
 
     [Fact]

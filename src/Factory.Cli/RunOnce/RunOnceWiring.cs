@@ -16,14 +16,15 @@ public sealed class RunOnceWiring
     public const string RemoteUrl = "https://github.com/jpjerkins/task-guide.git";
     public const string ClaudeCommand = "claude";
 
-    public RunOnceWiring(RunOnceSettings settings, string factoryBinaryPath, string baseDirectory, string home)
+    public RunOnceWiring(RunOnceSettings settings, string factoryBinaryPath, string baseDirectory, string home, string? dotnetRoot)
     {
         TrustFilePath = Path.Combine(home, ".claude.json");
         HerdrOptions = new HerdrOptions(
             RunsRoot: settings.RunsRoot,
             FactoryBinaryPath: factoryBinaryPath,
             GitConfigPath: Path.Combine(baseDirectory, "assets", "worker", "gitconfig"),
-            PromptTemplatePath: Path.Combine(baseDirectory, "assets", "worker", "prompt.md.template"));
+            PromptTemplatePath: Path.Combine(baseDirectory, "assets", "worker", "prompt.md.template"),
+            DotnetRoot: dotnetRoot);
         Options = new RunOnceOptions(settings.RepoRoot, settings.PollInterval, settings.StuckTimeout);
 
         var runner = new ProcessRunner();

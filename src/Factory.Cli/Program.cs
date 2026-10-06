@@ -27,7 +27,7 @@ static async Task<int> RunOnceAsync(RunOnceSettings settings)
         cancel.Cancel();
     };
 
-    var wiring = new RunOnceWiring(settings, Environment.ProcessPath!, AppContext.BaseDirectory, UserHome());
+    var wiring = new RunOnceWiring(settings, Environment.ProcessPath!, AppContext.BaseDirectory, UserHome(), Environment.GetEnvironmentVariable("DOTNET_ROOT"));
     var command = new RunOnceCommand(settings, wiring.RunOnce, wiring.NextIssue, Console.Out, Console.Error);
     return await command.RunAsync(cancel.Token);
 }

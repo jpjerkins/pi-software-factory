@@ -5,6 +5,7 @@ namespace Factory.Adapters.Herdr;
 /// <param name="FactoryBinaryPath">The published <c>factory</c> binary the worker hooks call.</param>
 /// <param name="GitConfigPath">The published <c>assets/worker/gitconfig</c>.</param>
 /// <param name="PromptTemplatePath">The published <c>assets/worker/prompt.md.template</c>.</param>
+/// <param name="DotnetRoot">Optional <c>DOTNET_ROOT</c> handed to workers so the framework-dependent <c>factory</c> binary finds the runtime; omitted from the worker env when null or empty.</param>
 public sealed record HerdrOptions(
     string RunsRoot,
     string FactoryBinaryPath,
@@ -12,7 +13,8 @@ public sealed record HerdrOptions(
     string PromptTemplatePath,
     string WorkspaceName = "factory",
     string SlotLabel = "factory-slot-1",
-    TimeSpan? AgentTimeout = null)
+    TimeSpan? AgentTimeout = null,
+    string? DotnetRoot = null)
 {
     public TimeSpan AgentStartTimeout => AgentTimeout ?? TimeSpan.FromSeconds(60);
 }

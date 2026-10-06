@@ -95,7 +95,20 @@ public sealed class HerdrSlots(ICommandRunner runner, HerdrOptions options) : IW
         return tab.GetProperty("root_pane").GetProperty("pane_id").GetString()!;
     }
 
-    private IEnumerable<(string Key, string Value)> WorkerEnvironment(WorkerLaunch launch, string runDir) =>
+    private IEnumerable<(string Key, string Value)> WorkerEnvironment(WorkerLaunch launch, string runDir)
+    {
+        foreach (var entry in BaseEnvironment(launch, runDir))
+        {
+            yield return entry;
+        }
+
+        if (!string.IsNullOrEmpty(options.DotnetRoot))
+        {
+            yield return ("DOTNET_ROOT", options.DotnetRoot);
+        }
+    }
+
+    private IEnumerable<(string Key, string Value)> BaseEnvironment(WorkerLaunch launch, string runDir) =>
     [
         ("FACTORY_RUN_DIR", runDir),
         ("FACTORY_RUN_ID", launch.Run.Value),
