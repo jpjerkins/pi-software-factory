@@ -57,7 +57,7 @@ public sealed class HerdrSlots(ICommandRunner runner, HerdrOptions options) : IW
     {
         Directory.CreateDirectory(runDir);
         Directory.CreateDirectory(GhConfigDir(runDir));
-        await new WorkerPromptFile(options.PromptTemplatePath).WriteAsync(runDir, launch.Issue, launch.Worktree.Path, ct);
+        await new WorkerPromptFile(options.PromptTemplatePath).WriteAsync(runDir, launch.Issue, launch.IssueTitle, launch.IssueBody, launch.Worktree.Path, ct);
         return await WorkerSettingsFile.WriteAsync(runDir, options.FactoryBinaryPath, ct);
     }
 

@@ -23,7 +23,8 @@ internal sealed record OpenIssuesPage(IReadOnlyList<Issue> Issues, string? NextC
         [.. n.Labels.Nodes.Select(l => l.Name)],
         [.. n.Assignees.Nodes.Select(a => a.Login)],
         OpenBlockers: [.. n.BlockedBy.Nodes.Where(IsOpen).Select(r => new IssueNumber(r.Number))],
-        DirectlyBlocks: [.. n.Blocking.Nodes.Where(IsOpen).Select(r => new IssueNumber(r.Number))]);
+        DirectlyBlocks: [.. n.Blocking.Nodes.Where(IsOpen).Select(r => new IssueNumber(r.Number))],
+        Body: n.Body ?? "");
 
     private static bool IsOpen(Ref r) => r.State.Equals("OPEN", StringComparison.OrdinalIgnoreCase);
 
@@ -38,7 +39,7 @@ internal sealed record OpenIssuesPage(IReadOnlyList<Issue> Issues, string? NextC
     private sealed record PageInfo(bool HasNextPage, string? EndCursor);
 
     private sealed record Node(
-        int Number, string Title, DateTimeOffset CreatedAt,
+        int Number, string Title, string? Body, DateTimeOffset CreatedAt,
         Connection<Label> Labels, Connection<Assignee> Assignees, Connection<Ref> BlockedBy, Connection<Ref> Blocking);
 
     private sealed record Connection<T>(List<T> Nodes);

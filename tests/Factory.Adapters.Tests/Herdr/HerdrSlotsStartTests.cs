@@ -15,7 +15,7 @@ public sealed class HerdrSlotsStartTests : IDisposable
     public void Dispose() => _root.Dispose();
 
     private static readonly RunId Run = new("20261004-1530-i103");
-    private static readonly WorkerLaunch Launch = new(Run, new IssueNumber(103), new Worktree("/wt/i103", "lane/i103"));
+    private static readonly WorkerLaunch Launch = new(Run, new IssueNumber(103), new Worktree("/wt/i103", "lane/i103"), "Fix the bug", "Details here");
 
     private string RunDir => _root.RunDir(Run.Value);
 
@@ -40,6 +40,16 @@ public sealed class HerdrSlotsStartTests : IDisposable
         Assert.Equal(["workspace", "list"], _herdr.Calls[0]);
         var tab = _herdr.Calls[1];
         Assert.Equal(["tab", "create", "--workspace", "w2", "--cwd", "/wt/i103", "--label", "factory-slot-1", "--no-focus"], tab.Take(9));
+    }
+
+    [Fact]
+    public async Task The_prompt_carries_the_launch_issue_title_and_body()
+    {
+        await HappyPath().StartAsync(Launch, Ct);
+
+        var prompt = File.ReadAllText(Path.Combine(RunDir, "prompt.md"));
+        Assert.Contains("**#103: Fix the bug**", prompt);
+        Assert.Contains("Details here", prompt);
     }
 
     [Fact]

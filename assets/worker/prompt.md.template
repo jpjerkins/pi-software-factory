@@ -6,9 +6,15 @@ Work task-guide #{{issue}} following the `start-lane` skill, sections §4 to §7
 
 Run directory (the factory reads it): `{{run_dir}}`
 
+## The issue
+
+**#{{issue}}: {{title}}**
+
+{{body}}
+
 ## Steps
 
-1. Read the issue and the relevant code.
+1. Read the issue above and the relevant code. Workers cannot use `gh`; the issue text above is all you get from GitHub.
 2. First write a **short, high-level plan** that fits on a phone screen. Then write `{{run_dir}}/result.json` with `"status": "plan_ready"` and stop. Wait for confirmation.
 3. After confirmation, continue with `start-lane` §4 to §7a.
 4. **Stop before §8.** Do not merge, push, or close anything.

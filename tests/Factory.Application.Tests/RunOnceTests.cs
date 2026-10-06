@@ -38,7 +38,7 @@ public class RunOnceTests
 
     private static Issue Eligible(int number, int createdDay = 1) => new(
         new IssueNumber(number), $"Issue {number}", true, new DateTimeOffset(2026, 9, createdDay, 0, 0, 0, TimeSpan.Zero),
-        ["build", "agent:claude", "lane:adapters"], [], [], []);
+        ["build", "agent:claude", "lane:adapters"], [], [], [], $"Body of {number}");
 
     private static WorkerResult Result(ReportedStatus status) => new(status, "s", [], [], [], []);
 
@@ -131,6 +131,8 @@ public class RunOnceTests
 
         var launch = Assert.Single(h.Slots.Launches);
         Assert.Equal(new IssueNumber(103), launch.Issue);
+        Assert.Equal("Issue 103", launch.IssueTitle);
+        Assert.Equal("Body of 103", launch.IssueBody);
         Assert.Equal(new Worktree("/repo/wt-103", "adapters/103-issue-103"), launch.Worktree);
         Assert.Equal("20261004-1530-i103", launch.Run.Value);
         Assert.Equal(["/repo/wt-103"], h.Trust.Trusted);

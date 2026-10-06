@@ -16,7 +16,7 @@ public sealed partial class GitHubIssues(string repo, ICommandRunner runner) : I
             issues(states: OPEN, first: 100, after: $cursor, orderBy: {field: CREATED_AT, direction: ASC}) {
               pageInfo { hasNextPage endCursor }
               nodes {
-                number title createdAt
+                number title body createdAt
                 labels(first: 50) { nodes { name } }
                 assignees(first: 20) { nodes { login } }
                 blockedBy(first: 50) { nodes { number state } }
