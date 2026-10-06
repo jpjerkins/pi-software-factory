@@ -15,13 +15,11 @@ public sealed class RunOnce(
     IClock clock,
     RunOnceOptions options)
 {
-    private readonly EligibilityPolicy _eligibility = new();
-    private readonly IssueOrdering _ordering = new();
+    private readonly NextIssue _nextIssue = new(issues);
 
     public async Task<RunOnceResult> ExecuteAsync(CancellationToken ct)
     {
-        var open = await issues.GetOpenAsync(ct);
-        var issue = _ordering.Order(open.Where(_eligibility.IsEligible)).FirstOrDefault();
+        var issue = await _nextIssue.FindAsync(ct);
         if (issue is null)
         {
             return RunOnceResult.NoWork;
