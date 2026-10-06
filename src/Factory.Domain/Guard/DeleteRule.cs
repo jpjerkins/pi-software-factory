@@ -10,7 +10,7 @@ internal static class DeleteRule
 
     public static GuardDecision? Check(IReadOnlyList<SimpleCommand> commands, GuardContext context)
     {
-        string? cwd = context.Worktree;
+        string? cwd = context.Cwd ?? context.Worktree;
         foreach (var command in commands)
         {
             cwd = WorkingDirectory.After(command, cwd, context);

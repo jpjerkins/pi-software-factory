@@ -9,11 +9,11 @@ internal static class ProtectedPathRule
     private static readonly HashSet<string> Deleters = ["rm", "rmdir", "unlink", "shred"];
 
     public static GuardDecision? CheckFileTool(string path, GuardContext context) =>
-        IsProtected(path, context.Worktree, context, allowResult: true) ? Deny(path, context) : null;
+        IsProtected(path, context.Cwd ?? context.Worktree, context, allowResult: true) ? Deny(path, context) : null;
 
     public static GuardDecision? CheckCommands(IReadOnlyList<SimpleCommand> commands, GuardContext context)
     {
-        string? cwd = context.Worktree;
+        string? cwd = context.Cwd ?? context.Worktree;
         foreach (var command in commands)
         {
             cwd = WorkingDirectory.After(command, cwd, context);
